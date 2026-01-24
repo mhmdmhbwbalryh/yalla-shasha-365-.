@@ -6,13 +6,22 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>يلا شوت شاشا - دوري شاشا الخماسي</h1>
-    <button id="admin-btn">⚙️ الإدمن</button>
 
-    <div id="matches"></div>
-    <div id="ranking"></div>
-    <div id="top-scorers"></div>
+<h1>يلا شوت شاشا ⚽</h1>
 
-    <script src="script.js"></script>
+<button id="admin-btn">⚙️ دخول الإدمن</button>
+
+<div id="admin-panel" style="display:none;">
+    <h2>لوحة الإدمن</h2>
+    <input type="text" id="matchInput" placeholder="مثال: فريق A 2 - 1 فريق B">
+    <button onclick="addMatch()">➕ إضافة مباراة</button>
+</div>
+
+<div id="matches">
+    <h2>المباريات</h2>
+    <ul id="matchList"></ul>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
