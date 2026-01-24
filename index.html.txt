@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>يلا شوت شاشا</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>يلا شوت شاشا - دوري شاشا الخماسي</h1>
+    <button id="admin-btn">⚙️ الإدمن</button>
+    <div id="matches"></div>
+    <div id="ranking"></div>
+    <div id="top-scorers"></div>
+    <script src="script.js"></script>
+</body>
+</html>

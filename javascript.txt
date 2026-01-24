@@ -1,0 +1,10 @@
+const adminBtn = document.getElementById('admin-btn');
+adminBtn.addEventListener('click', () => {
+    const password = prompt("ادخل الرقم السري:");
+    if(password === "1234") {
+        alert("تم الدخول للوحة الإدمن!");
+        // هنا يمكنك إضافة الكود لإدخال النتائج
+    } else {
+        alert("كلمة السر خاطئة!");
+    }
+});
