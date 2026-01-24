@@ -7,8 +7,16 @@
 </head>
 <body>
 
-<h1>يلا شوت شاشا ⚽</h1>
+<div id="sidebar">
+    <h3>الإعدادات</h3>
+    <button onclick="setTheme('day')">☀️ نهاري</button>
+    <button onclick="setTheme('night')">🌙 ليلي</button>
+    <hr>
+    <button onclick="setLang('ar')">🇸🇩 عربي</button>
+    <button onclick="setLang('en')">🇬🇧 English</button>
+</div>
 
+<h1 id="site-title">يلا شوت شاشا ⚽</h1>
 <button id="admin-btn">⚙️ دخول الإدمن</button>
 
 <div id="admin-panel" style="display:none;">
@@ -17,9 +25,32 @@
     <button onclick="addMatch()">➕ إضافة مباراة</button>
 </div>
 
-<div id="matches">
+<nav>
+    <button onclick="showPage('matches')">المباريات</button>
+    <button onclick="showPage('ranking')">الترتيب</button>
+    <button onclick="showPage('top-scorers')">أفضل الهدافين</button>
+</nav>
+
+<div id="matches" class="page">
     <h2>المباريات</h2>
     <ul id="matchList"></ul>
+</div>
+
+<div id="ranking" class="page" style="display:none;">
+    <h2>الترتيب</h2>
+    <ol id="rankingList"></ol>
+</div>
+
+<div id="top-scorers" class="page" style="display:none;">
+    <h2>أفضل الهدافين</h2>
+    <ul id="topScorersList"></ul>
+</div>
+
+<div id="lineup" style="display:none;"></div>
+
+<div id="footer">
+    <p>GOAT CR7</p>
+    <p>محمد محبوب الريح 😎</p>
 </div>
 
 <script src="script.js"></script>
