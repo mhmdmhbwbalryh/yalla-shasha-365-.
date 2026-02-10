@@ -1,107 +1,65 @@
-// ======== التنقل بين الصفحات ========
-function showPage(page) {
-    const pages = document.querySelectorAll('.page');
-    pages.forEach(p => p.style.display = 'none');
-    document.getElementById(page).style.display = 'block';
-    document.getElementById('lineup').style.display = 'none';
-}
-
-// ======== البيانات ========
-let matches = JSON.parse(localStorage.getItem("matches")) || [];
-let ranking = JSON.parse(localStorage.getItem("ranking")) || [];
-let topScorers = JSON.parse(localStorage.getItem("topScorers")) || [];
-
-const matchList = document.getElementById('matchList');
-const rankingList = document.getElementById('rankingList');
-const topScorersList = document.getElementById('topScorersList');
-
-// ======== عرض البيانات ========
-function renderMatches() {
-    matchList.innerHTML = '';
-    matches.forEach((m, i) => {
-        const li = document.createElement('li');
-        li.textContent = m.name;
-        li.className = 'match-card';
-        li.onclick = () => showLineup(i);
-        matchList.appendChild(li);
-    });
-}
-
-function renderRanking() {
-    rankingList.innerHTML = '';
-    ranking.forEach(team => {
-        const li = document.createElement('li');
-        li.textContent = `${team.name} - ${team.points} نقاط`;
-        rankingList.appendChild(li);
-    });
-}
-
-function renderTopScorers() {
-    topScorersList.innerHTML = '';
-    topScorers.forEach(player => {
-        const li = document.createElement('li');
-        li.textContent = `${player.name} - ${player.goals} أهداف`;
-        topScorersList.appendChild(li);
-    });
-}
-
-// ======== لوحة الإدمن ========
-const adminBtn = document.getElementById('admin-btn');
-const adminPanel = document.getElementById('admin-panel');
-
-adminBtn.onclick = () => {
-    const pass = prompt("ادخل كلمة السر:");
-    if(pass === "1234") {
-        adminPanel.style.display = "block";
-        alert("أنت الآن إدمن ✏️");
-    } else {
-        alert("كلمة السر خاطئة");
-    }
+// الفرق واللاعبين
+const teams = {
+  "الهجانة":["عثمانو","عبدالرحمن","محمد","العاقب","عبدالله"],
+  "سنايبر":["محمد محبوب","عبدالحكم","عبدالله اليسع","أحمد محمد","حافظ"],
+  "الفدائيين":["إسماعيل","مزمل","محمد عبدو","طريفي","مضوي"],
+  "أمن يا جن":["محمد مانفي","عبدو","أحمد كريش","حمد","حملمي"],
+  "العمل الخاص":["أسامة أحمد عبدالكريم","عمر","حمدون","دقلوس"],
+  "أبوطيرة":["معاو","يوسف","صديق","حسين","إبراهيم"]
 };
 
-function addMatch() {
-    const input = document.getElementById('matchInput');
-    if(input.value !== "") {
-        matches.push({name: input.value, lineup: ["لاعب1","لاعب2","لاعب3"]});
-        localStorage.setItem("matches", JSON.stringify(matches));
-        input.value = "";
-        renderMatches();
-    }
+// بيانات المباريات + التوقيت
+const matchesData = [
+  {team1:"الهجانة", team2:"أبوطيرة", time:"15:00"},
+  {team1:"العمل الخاص", team2:"أمن يا جن", time:"17:00"},
+  {team1:"الفدائيين", team2:"سنايبر", time:"19:00"}
+];
+
+// عرض المباريات في الصفحة الرئيسية
+function renderMatches(){
+  const container = document.getElementById("matches");
+  container.innerHTML="";
+  matchesData.forEach((m,i)=>{
+    const div = document.createElement("div");
+    div.className="match-card";
+    div.innerHTML=`<b>${m.team1}</b> vs <b>${m.team2}</b><br><small>التوقيت: ${m.time}</small>`;
+    div.onclick=()=>openModal(m);
+    container.appendChild(div);
+  });
 }
 
-// ======== عرض التشكيلة ========
-function showLineup(index) {
-    const div = document.getElementById('lineup');
-    div.style.display = 'block';
-    div.innerHTML = `<h3>تشكيلة المباراة</h3><ul id="lineupList"></ul>`;
-    const ul = document.getElementById('lineupList');
-    matches[index].lineup.forEach(player => {
-        const li = document.createElement('li');
-        li.textContent = player;
-        li.onclick = () => alert(`${player}\nمواصفات اللاعب`);
-        ul.appendChild(li);
-    });
+// فتح Modal للمباراة
+function openModal(match){
+  document.getElementById("modalTitle").innerText = `${match.team1} vs ${match.team2}`;
+  document.getElementById("team1Field").innerHTML = `<b>${match.team1}</b><br>${teams[match.team1].join("<br>")}`;
+  document.getElementById("team2Field").innerHTML = `<b>${match.team2}</b><br>${teams[match.team2].join("<br>")}`;
+  // مؤقتاً بيانات النقاط والهدافين والصانعين
+  document.getElementById("points").innerText = "الهجانة: 3\nأبوطيرة: 1";
+  document.getElementById("scorers").innerText = "محمد محبوب: 2 أهداف";
+  document.getElementById("assists").innerText = "أحمد محمد: 1 تمريرة حاسمة";
+
+  document.getElementById("matchModal").style.display="block";
 }
 
-// ======== الوضع نهاري / ليلي ========
-function setTheme(theme) {
-    if(theme === 'day') {
-        document.body.style.background = '#f5f5f5';
-        document.body.style.color = '#000';
-    } else {
-        document.body.style.background = '#121212';
-        document.body.style.color = '#fff';
-    }
+function closeModal(){
+  document.getElementById("matchModal").style.display="none";
 }
 
-// ======== تغيير اللغة ========
-function setLang(lang) {
-    const title = document.getElementById('site-title');
-    if(lang === 'ar') title.textContent = 'يلا شوت شاشا ⚽';
-    else title.textContent = 'Yalla Shasha ⚽';
+// الإعدادات
+function toggleSettings(){
+  const s = document.getElementById("settings");
+  s.style.display = s.style.display==="none"?"block":"none";
+}
+function toggleTheme(){
+  document.body.style.background = document.body.style.background.includes("#a0d8ff") ? "linear-gradient(to bottom, #001f3f, #000000)" : "linear-gradient(to bottom, #a0d8ff, #ffffff)";
+}
+function changeLang(lang){ alert("تغيير اللغة إلى: "+lang); }
+function adminLogin(){
+  let pw = prompt("أدخل كلمة السر:");
+  if(pw==="123321"){
+    alert("تم الدخول للوحة الإدارة");
+  } else { alert("كلمة سر خاطئة!"); }
 }
 
-// ======== أول تحميل ========
+// بدء التطبيق
 renderMatches();
-renderRanking();
-renderTopScorers();
