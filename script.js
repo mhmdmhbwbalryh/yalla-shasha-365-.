@@ -1,65 +1,68 @@
-// الفرق واللاعبين
 const teams = {
   "الهجانة":["عثمانو","عبدالرحمن","محمد","العاقب","عبدالله"],
-  "سنايبر":["محمد محبوب","عبدالحكم","عبدالله اليسع","أحمد محمد","حافظ"],
-  "الفدائيين":["إسماعيل","مزمل","محمد عبدو","طريفي","مضوي"],
-  "أمن يا جن":["محمد مانفي","عبدو","أحمد كريش","حمد","حملمي"],
-  "العمل الخاص":["أسامة أحمد عبدالكريم","عمر","حمدون","دقلوس"],
-  "أبوطيرة":["معاو","يوسف","صديق","حسين","إبراهيم"]
+  "أبوطيرة":["معاو","يوسف","صديق","حسين","إبراهيم"],
+  "العمل الخاص":["أسامة","عمر","حمدون","دقلوس","عبدالكريم"],
+  "أمن يا جن":["مانفي","عبدو","كريش","حمد","حملمي"],
+  "الفدائيين":["إسماعيل","مزمل","عبدو","طريفي","مضوي"],
+  "سنايبر":["محمد محبوب","عبدالحكم","اليسع","أحمد","حافظ"]
 };
 
-// بيانات المباريات + التوقيت
-const matchesData = [
-  {team1:"الهجانة", team2:"أبوطيرة", time:"15:00"},
-  {team1:"العمل الخاص", team2:"أمن يا جن", time:"17:00"},
-  {team1:"الفدائيين", team2:"سنايبر", time:"19:00"}
+const standings = [
+  {team:"سنايبر",pts:10,w:3,l:1},
+  {team:"الهجانة",pts:9,w:3,l:2},
+  {team:"الفدائيين",pts:7,w:2,l:2}
 ];
 
-// عرض المباريات في الصفحة الرئيسية
-function renderMatches(){
-  const container = document.getElementById("matches");
-  container.innerHTML="";
-  matchesData.forEach((m,i)=>{
-    const div = document.createElement("div");
-    div.className="match-card";
-    div.innerHTML=`<b>${m.team1}</b> vs <b>${m.team2}</b><br><small>التوقيت: ${m.time}</small>`;
-    div.onclick=()=>openModal(m);
-    container.appendChild(div);
-  });
+const scorers = [
+  {name:"محمد محبوب",g:5},
+  {name:"إسماعيل",g:4}
+];
+
+function openMatch(){
+  document.getElementById("modal").style.display="block";
 }
 
-// فتح Modal للمباراة
-function openModal(match){
-  document.getElementById("modalTitle").innerText = `${match.team1} vs ${match.team2}`;
-  document.getElementById("team1Field").innerHTML = `<b>${match.team1}</b><br>${teams[match.team1].join("<br>")}`;
-  document.getElementById("team2Field").innerHTML = `<b>${match.team2}</b><br>${teams[match.team2].join("<br>")}`;
-  // مؤقتاً بيانات النقاط والهدافين والصانعين
-  document.getElementById("points").innerText = "الهجانة: 3\nأبوطيرة: 1";
-  document.getElementById("scorers").innerText = "محمد محبوب: 2 أهداف";
-  document.getElementById("assists").innerText = "أحمد محمد: 1 تمريرة حاسمة";
-
-  document.getElementById("matchModal").style.display="block";
+function closeMatch(){
+  document.getElementById("modal").style.display="none";
 }
 
-function closeModal(){
-  document.getElementById("matchModal").style.display="none";
+function showLineup(){
+  const v=document.getElementById("view");
+  v.innerHTML=`
+  <div class="field">
+    <div class="half left">${drawTeam("الهجانة",false)}</div>
+    <div class="half right">${drawTeam("أبوطيرة",true)}</div>
+  </div>`;
 }
 
-// الإعدادات
-function toggleSettings(){
-  const s = document.getElementById("settings");
-  s.style.display = s.style.display==="none"?"block":"none";
+function drawTeam(team,flip){
+  const pos = [
+    [45,85],[25,60],[65,60],[30,30],[60,30]
+  ];
+  return teams[team].map((p,i)=>{
+    let x=pos[i][0],y=pos[i][1];
+    if(flip) x=100-x;
+    return `<div class="player" style="left:${x}%;top:${y}%">${p}</div>`;
+  }).join("");
 }
-function toggleTheme(){
-  document.body.style.background = document.body.style.background.includes("#a0d8ff") ? "linear-gradient(to bottom, #001f3f, #000000)" : "linear-gradient(to bottom, #a0d8ff, #ffffff)";
+
+function showStandings(){
+  document.getElementById("view").innerHTML =
+    standings.map(t=>`${t.team} - ${t.pts} نقطة`).join("<br>");
 }
-function changeLang(lang){ alert("تغيير اللغة إلى: "+lang); }
+
+function showScorers(){
+  document.getElementById("view").innerHTML =
+    scorers.map(s=>`${s.name} (${s.g})`).join("<br>");
+}
+
+function showAssists(){
+  document.getElementById("view").innerHTML = "فارغ حالياً";
+}
+
 function adminLogin(){
-  let pw = prompt("أدخل كلمة السر:");
-  if(pw==="123321"){
-    alert("تم الدخول للوحة الإدارة");
-  } else { alert("كلمة سر خاطئة!"); }
+  const pw=prompt("كلمة السر");
+  if(pw==="12333221"){
+    alert("وضع الإدارة (تعديل البيانات لاحقاً)");
+  } else alert("خطأ");
 }
-
-// بدء التطبيق
-renderMatches();
