@@ -2,54 +2,42 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Yalla Screen</title>
+<title>Yalla Shasha</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header>Yalla Screen</header>
+<div class="admin-btn" onclick="adminLogin()">الإدارة</div>
 
-<div class="container">
-  <div class="main" id="matches">
-    <!-- المباريات ستظهر هنا -->
+<h1 class="title">Yalla Shasha</h1>
+
+<div class="matches">
+  <div class="match" onclick="openMatch(0)">
+    الهجانة × أبوطيرة
+    <span>16:00</span>
   </div>
-
-  <div class="sidebar">
-    <h3>إعلانات</h3>
-    <div id="ads">إعلان تجريبي</div>
-    <hr>
-    <button onclick="toggleSettings()">⚙️ الإعدادات</button>
-    <div id="settings" style="display:none; margin-top:10px;">
-      <p><b>الوضع:</b> <button onclick="toggleTheme()">تبديل الليل/النهار</button></p>
-      <p><b>اللغات:</b></p>
-      <ul>
-        <li><button onclick="changeLang('ar')">العربية</button></li>
-        <li><button onclick="changeLang('en')">English</button></li>
-        <li><button onclick="changeLang('fr')">Français</button></li>
-      </ul>
-      <p><button onclick="adminLogin()">لوحة الإدارة</button></p>
-    </div>
+  <div class="match" onclick="openMatch(1)">
+    العمل الخاص × أمن يا جن
+    <span>18:00</span>
+  </div>
+  <div class="match" onclick="openMatch(2)">
+    الفدائيين × سنايبر
+    <span>20:00</span>
   </div>
 </div>
 
-<!-- نافذة المباراة المنبثقة -->
-<div id="matchModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <h2 id="modalTitle">الهجانة vs أبوطيرة</h2>
-    <div class="field">
-      <div class="teamField" id="team1Field"></div>
-      <div class="teamField" id="team2Field"></div>
+<div id="modal" class="modal">
+  <button class="back" onclick="closeMatch()">رجوع</button>
+
+  <div class="content">
+    <div class="menu">
+      <button onclick="showLineup()">التشكيلة</button>
+      <button onclick="showStandings()">ترتيب الفرق</button>
+      <button onclick="showScorers()">الهدافين</button>
+      <button onclick="showAssists()">صانعي الأهداف</button>
     </div>
-    <div id="stats">
-      <h3>ترتيب النقاط</h3>
-      <div id="points">توزيع النقاط هنا</div>
-      <h3>الهدافين</h3>
-      <div id="scorers">الهدافين هنا</div>
-      <h3>أفضل صانعي اللعب</h3>
-      <div id="assists">الصانعين هنا</div>
-    </div>
+
+    <div id="view"></div>
   </div>
 </div>
 
