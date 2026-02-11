@@ -1,56 +1,53 @@
 body{
   margin:0;
-  font-family:Arial;
-  background:linear-gradient(#0a7d2c,#0f9d3a);
-  color:white;
+  font-family: 'Cinzel', serif;
+  background:linear-gradient(#1a0000,#400000);
+  color:gold;
   text-align:center;
 }
 
 .logo{
-  color:gold;
-  margin:20px;
+  padding:20px;
+  font-size:28px;
+  letter-spacing:3px;
+  text-shadow:0 0 10px red;
 }
 
-.match-card{
-  background:#0b5;
-  margin:15px;
+.match{
+  background:#600000;
+  margin:15px auto;
   padding:15px;
-  border-radius:12px;
+  width:80%;
+  border:2px solid gold;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.match:hover{
+  background:#900000;
+}
+
+.options button{
+  background:#800000;
+  color:gold;
+  border:1px solid gold;
+  margin:10px;
+  padding:10px;
   cursor:pointer;
 }
 
-.teams{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  font-size:18px;
-}
-
-.score{
-  background:black;
-  padding:5px 15px;
-  border-radius:8px;
-  color:gold;
-}
-
-.status{
-  margin-top:10px;
-  font-size:14px;
-}
-
-.live{
-  color:red;
-  font-weight:bold;
-}
-
 .back{
-  margin:10px;
+  margin:15px;
+  background:black;
+  color:gold;
+  padding:8px;
 }
 
-.lineup-btn{
-  margin:20px;
+.hidden{
+  display:none;
 }
 
+/* الملعب */
 .field{
   position:relative;
   width:90%;
@@ -62,9 +59,9 @@ body{
 
 .player{
   position:absolute;
-  background:white;
-  color:black;
-  padding:5px;
+  background:black;
+  color:white;
+  padding:6px;
   border-radius:50%;
   font-size:12px;
 }
