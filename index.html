@@ -3,42 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Yalla Shasha</title>
+<title>Dragon League</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1 class="logo">Yalla Shasha</h1>
+<h1 class="logo">🔥 DRAGON LEAGUE 🔥</h1>
 
-<div class="matches">
+<div id="home">
 
-  <div class="match-card" onclick="openMatch(0)">
-    <div class="teams">
-      <span>الهجانة</span>
-      <span class="score">2 - 1</span>
-      <span>أبوطيرة</span>
-    </div>
-    <div class="status">انتهت</div>
+  <div class="match" onclick="openMatch(0)">
+    الهجانة × أبوطيرة
   </div>
 
-  <div class="match-card" onclick="openMatch(1)">
-    <div class="teams">
-      <span>العمل الخاص</span>
-      <span class="score">1 - 1</span>
-      <span>أمن يا جن</span>
-    </div>
-    <div class="status live">LIVE</div>
+  <div class="match" onclick="openMatch(1)">
+    العمل الخاص × أمن يا جن
   </div>
 
-  <div class="match-card" onclick="openMatch(2)">
-    <div class="teams">
-      <span>الفدائيين</span>
-      <span class="score">3 - 2</span>
-      <span>سنايبر</span>
-    </div>
-    <div class="status">انتهت</div>
+  <div class="match" onclick="openMatch(2)">
+    الفدائيين × سنايبر
   </div>
 
+</div>
+
+<div id="details" class="hidden">
+  <button class="back" onclick="goHome()">⬅ رجوع</button>
+
+  <div class="options">
+    <button onclick="showLineup()">التشكيلة</button>
+    <button onclick="showStandings()">ترتيب الفرق</button>
+    <button onclick="showScorers()">الهدافين</button>
+    <button onclick="showAssists()">صانعي الأهداف</button>
+  </div>
+
+  <div id="content"></div>
 </div>
 
 <script src="script.js"></script>
