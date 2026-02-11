@@ -2,43 +2,43 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Yalla Shasha</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="admin-btn" onclick="adminLogin()">الإدارة</div>
-
-<h1 class="title">Yalla Shasha</h1>
+<h1 class="logo">Yalla Shasha</h1>
 
 <div class="matches">
-  <div class="match" onclick="openMatch(0)">
-    الهجانة × أبوطيرة
-    <span>16:00</span>
-  </div>
-  <div class="match" onclick="openMatch(1)">
-    العمل الخاص × أمن يا جن
-    <span>18:00</span>
-  </div>
-  <div class="match" onclick="openMatch(2)">
-    الفدائيين × سنايبر
-    <span>20:00</span>
-  </div>
-</div>
 
-<div id="modal" class="modal">
-  <button class="back" onclick="closeMatch()">رجوع</button>
-
-  <div class="content">
-    <div class="menu">
-      <button onclick="showLineup()">التشكيلة</button>
-      <button onclick="showStandings()">ترتيب الفرق</button>
-      <button onclick="showScorers()">الهدافين</button>
-      <button onclick="showAssists()">صانعي الأهداف</button>
+  <div class="match-card" onclick="openMatch(0)">
+    <div class="teams">
+      <span>الهجانة</span>
+      <span class="score">2 - 1</span>
+      <span>أبوطيرة</span>
     </div>
-
-    <div id="view"></div>
+    <div class="status">انتهت</div>
   </div>
+
+  <div class="match-card" onclick="openMatch(1)">
+    <div class="teams">
+      <span>العمل الخاص</span>
+      <span class="score">1 - 1</span>
+      <span>أمن يا جن</span>
+    </div>
+    <div class="status live">LIVE</div>
+  </div>
+
+  <div class="match-card" onclick="openMatch(2)">
+    <div class="teams">
+      <span>الفدائيين</span>
+      <span class="score">3 - 2</span>
+      <span>سنايبر</span>
+    </div>
+    <div class="status">انتهت</div>
+  </div>
+
 </div>
 
 <script src="script.js"></script>
