@@ -1,68 +1,63 @@
+const matches = [
+  {
+    home:"الهجانة",
+    away:"أبوطيرة",
+    score:"2 - 1",
+    status:"انتهت",
+    scorers:["عثمانو 1","محمد 1","يوسف 1"]
+  },
+  {
+    home:"العمل الخاص",
+    away:"أمن يا جن",
+    score:"1 - 1",
+    status:"LIVE",
+    scorers:["عمر 1","عبدو 1"]
+  },
+  {
+    home:"الفدائيين",
+    away:"سنايبر",
+    score:"3 - 2",
+    status:"انتهت",
+    scorers:["إسماعيل 2","محمد محبوب 2"]
+  }
+];
+
 const teams = {
   "الهجانة":["عثمانو","عبدالرحمن","محمد","العاقب","عبدالله"],
-  "أبوطيرة":["معاو","يوسف","صديق","حسين","إبراهيم"],
-  "العمل الخاص":["أسامة","عمر","حمدون","دقلوس","عبدالكريم"],
-  "أمن يا جن":["مانفي","عبدو","كريش","حمد","حملمي"],
-  "الفدائيين":["إسماعيل","مزمل","عبدو","طريفي","مضوي"],
-  "سنايبر":["محمد محبوب","عبدالحكم","اليسع","أحمد","حافظ"]
+  "أبوطيرة":["معاو","يوسف","صديق","حسين","إبراهيم"]
 };
 
-const standings = [
-  {team:"سنايبر",pts:10,w:3,l:1},
-  {team:"الهجانة",pts:9,w:3,l:2},
-  {team:"الفدائيين",pts:7,w:2,l:2}
-];
-
-const scorers = [
-  {name:"محمد محبوب",g:5},
-  {name:"إسماعيل",g:4}
-];
-
-function openMatch(){
-  document.getElementById("modal").style.display="block";
+function openMatch(id){
+  localStorage.setItem("currentMatch",id);
+  window.location="match.html";
 }
 
-function closeMatch(){
-  document.getElementById("modal").style.display="none";
+function goBack(){
+  window.location="index.html";
+}
+
+if(document.getElementById("matchDetails")){
+  const id=localStorage.getItem("currentMatch");
+  const match=matches[id];
+
+  document.getElementById("matchDetails").innerHTML=`
+    <h2>${match.home} ${match.score} ${match.away}</h2>
+    <p>${match.status}</p>
+    <h3>الهدافين</h3>
+    ${match.scorers.join("<br>")}
+  `;
 }
 
 function showLineup(){
-  const v=document.getElementById("view");
-  v.innerHTML=`
-  <div class="field">
-    <div class="half left">${drawTeam("الهجانة",false)}</div>
-    <div class="half right">${drawTeam("أبوطيرة",true)}</div>
-  </div>`;
+  const area=document.getElementById("lineupArea");
+  area.innerHTML=`<div class="field">${drawTeam("الهجانة",false)+drawTeam("أبوطيرة",true)}</div>`;
 }
 
 function drawTeam(team,flip){
-  const pos = [
-    [45,85],[25,60],[65,60],[30,30],[60,30]
-  ];
+  const pos=[[45,85],[25,60],[65,60],[30,30],[60,30]];
   return teams[team].map((p,i)=>{
     let x=pos[i][0],y=pos[i][1];
     if(flip) x=100-x;
     return `<div class="player" style="left:${x}%;top:${y}%">${p}</div>`;
   }).join("");
-}
-
-function showStandings(){
-  document.getElementById("view").innerHTML =
-    standings.map(t=>`${t.team} - ${t.pts} نقطة`).join("<br>");
-}
-
-function showScorers(){
-  document.getElementById("view").innerHTML =
-    scorers.map(s=>`${s.name} (${s.g})`).join("<br>");
-}
-
-function showAssists(){
-  document.getElementById("view").innerHTML = "فارغ حالياً";
-}
-
-function adminLogin(){
-  const pw=prompt("كلمة السر");
-  if(pw==="12333221"){
-    alert("وضع الإدارة (تعديل البيانات لاحقاً)");
-  } else alert("خطأ");
 }
