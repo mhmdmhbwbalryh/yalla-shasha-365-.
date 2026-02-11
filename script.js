@@ -1,56 +1,59 @@
-const matches = [
-  {
-    home:"الهجانة",
-    away:"أبوطيرة",
-    score:"2 - 1",
-    status:"انتهت",
-    scorers:["عثمانو 1","محمد 1","يوسف 1"]
-  },
-  {
-    home:"العمل الخاص",
-    away:"أمن يا جن",
-    score:"1 - 1",
-    status:"LIVE",
-    scorers:["عمر 1","عبدو 1"]
-  },
-  {
-    home:"الفدائيين",
-    away:"سنايبر",
-    score:"3 - 2",
-    status:"انتهت",
-    scorers:["إسماعيل 2","محمد محبوب 2"]
-  }
+let currentMatch=0;
+
+const matches=[
+  {home:"الهجانة",away:"أبوطيرة"},
+  {home:"العمل الخاص",away:"أمن يا جن"},
+  {home:"الفدائيين",away:"سنايبر"}
 ];
 
-const teams = {
+const teams={
   "الهجانة":["عثمانو","عبدالرحمن","محمد","العاقب","عبدالله"],
-  "أبوطيرة":["معاو","يوسف","صديق","حسين","إبراهيم"]
+  "أبوطيرة":["معاو","يوسف","صديق","حسين","إبراهيم"],
+  "العمل الخاص":["أسامة","عمر","حمدون","دقلوس","عبدالكريم"],
+  "أمن يا جن":["مانفي","عبدو","كريش","حمد","حملمي"],
+  "الفدائيين":["إسماعيل","مزمل","عبدو","طريفي","مضوي"],
+  "سنايبر":["محمد محبوب","عبدالحكم","اليسع","أحمد","حافظ"]
 };
 
+const standings=[
+  {team:"سنايبر",pts:12},
+  {team:"الهجانة",pts:9},
+  {team:"الفدائيين",pts:7},
+  {team:"العمل الخاص",pts:6},
+  {team:"أمن يا جن",pts:4},
+  {team:"أبوطيرة",pts:2}
+];
+
+const scorers=[
+  {name:"محمد محبوب",g:6},
+  {name:"إسماعيل",g:5},
+  {name:"عثمانو",g:4}
+];
+
+const assists=[
+  {name:"عبدالحكم",a:3},
+  {name:"مزمل",a:2}
+];
+
 function openMatch(id){
-  localStorage.setItem("currentMatch",id);
-  window.location="match.html";
+  currentMatch=id;
+  document.getElementById("home").style.display="none";
+  document.getElementById("details").classList.remove("hidden");
 }
 
-function goBack(){
-  window.location="index.html";
-}
-
-if(document.getElementById("matchDetails")){
-  const id=localStorage.getItem("currentMatch");
-  const match=matches[id];
-
-  document.getElementById("matchDetails").innerHTML=`
-    <h2>${match.home} ${match.score} ${match.away}</h2>
-    <p>${match.status}</p>
-    <h3>الهدافين</h3>
-    ${match.scorers.join("<br>")}
-  `;
+function goHome(){
+  document.getElementById("details").classList.add("hidden");
+  document.getElementById("home").style.display="block";
+  document.getElementById("content").innerHTML="";
 }
 
 function showLineup(){
-  const area=document.getElementById("lineupArea");
-  area.innerHTML=`<div class="field">${drawTeam("الهجانة",false)+drawTeam("أبوطيرة",true)}</div>`;
+  const m=matches[currentMatch];
+  document.getElementById("content").innerHTML=
+    `<div class="field">
+      ${drawTeam(m.home,false)}
+      ${drawTeam(m.away,true)}
+    </div>`;
 }
 
 function drawTeam(team,flip){
@@ -60,4 +63,19 @@ function drawTeam(team,flip){
     if(flip) x=100-x;
     return `<div class="player" style="left:${x}%;top:${y}%">${p}</div>`;
   }).join("");
+}
+
+function showStandings(){
+  document.getElementById("content").innerHTML=
+    standings.map(t=>`${t.team} - ${t.pts} نقطة`).join("<br>");
+}
+
+function showScorers(){
+  document.getElementById("content").innerHTML=
+    scorers.map(s=>`${s.name} (${s.g})`).join("<br>");
+}
+
+function showAssists(){
+  document.getElementById("content").innerHTML=
+    assists.map(a=>`${a.name} (${a.a})`).join("<br>");
 }
