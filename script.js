@@ -1,81 +1,151 @@
-let currentMatch=0;
+// =======================
+// العداد + مباشر
+// =======================
+let matchDuration = 20;
+let liveStarted = false;
+let currentMinute = 0;
 
-const matches=[
-  {home:"الهجانة",away:"أبوطيرة"},
-  {home:"العمل الخاص",away:"أمن يا جن"},
-  {home:"الفدائيين",away:"سنايبر"}
+function startCountdown(){
+let now = new Date();
+let matchTime = new Date();
+matchTime.setHours(20);
+matchTime.setMinutes(40);
+matchTime.setSeconds(0);
+
+let interval = setInterval(function(){
+let now = new Date();
+let diff = matchTime - now;
+
+if(diff <= 0){
+clearInterval(interval);
+goLive();
+return;
+}
+
+let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+let seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+document.getElementById("countdown").innerHTML =
+"⏳ متبقي: " + minutes + " دقيقة و " + seconds + " ثانية";
+
+},1000);
+}
+
+function goLive(){
+document.getElementById("countdown").innerHTML = "🔴 مباشر الآن";
+let match = document.getElementById("liveMatch");
+match.classList.add("live");
+match.innerHTML += "<div id='minute'>⏱ الدقيقة 0</div>";
+startTimer();
+}
+
+function startTimer(){
+setInterval(()=>{
+currentMinute++;
+if(currentMinute <= matchDuration){
+document.getElementById("minute").innerHTML =
+"⏱ الدقيقة " + currentMinute;
+}else{
+document.getElementById("minute").innerHTML =
+"✅ انتهت المباراة";
+}
+},60000);
+}
+
+startCountdown();
+
+// =======================
+// نظام الدوري
+// =======================
+let teams = [
+"حمد صلاح",
+"عبدالرحيم",
+"أحمد محمد يوسف",
+"عبدالرحمن",
+"معاوية",
+"عبدالمؤمن",
+"حافظ بشير"
 ];
 
-const teams={
-  "الهجانة":["عثمانو","عبدالرحمن","محمد","العاقب","عبدالله"],
-  "أبوطيرة":["معاو","يوسف","صديق","حسين","إبراهيم"],
-  "العمل الخاص":["أسامة","عمر","حمدون","دقلوس","عبدالكريم"],
-  "أمن يا جن":["مانفي","عبدو","كريش","حمد","حملمي"],
-  "الفدائيين":["إسماعيل","مزمل","عبدو","طريفي","مضوي"],
-  "سنايبر":["محمد محبوب","عبدالحكم","اليسع","أحمد","حافظ"]
-};
+let data = JSON.parse(localStorage.getItem("leagueData")) || {};
 
-const standings=[
-  {team:"سنايبر",pts:12},
-  {team:"الهجانة",pts:9},
-  {team:"الفدائيين",pts:7},
-  {team:"العمل الخاص",pts:6},
-  {team:"أمن يا جن",pts:4},
-  {team:"أبوطيرة",pts:2}
-];
+teams.forEach(team=>{
+if(!data[team]){
+data[team]={played:0,win:0,draw:0,lose:0,goalsFor:0,goalsAgainst:0,points:0};
+}
+});
 
-const scorers=[
-  {name:"محمد محبوب",g:6},
-  {name:"إسماعيل",g:5},
-  {name:"عثمانو",g:4}
-];
-
-const assists=[
-  {name:"عبدالحكم",a:3},
-  {name:"مزمل",a:2}
-];
-
-function openMatch(id){
-  currentMatch=id;
-  document.getElementById("home").style.display="none";
-  document.getElementById("details").classList.remove("hidden");
+function saveData(){
+localStorage.setItem("leagueData",JSON.stringify(data));
 }
 
-function goHome(){
-  document.getElementById("details").classList.add("hidden");
-  document.getElementById("home").style.display="block";
-  document.getElementById("content").innerHTML="";
+function populateTeams(){
+let t1=document.getElementById("team1");
+let t2=document.getElementById("team2");
+
+teams.forEach(team=>{
+t1.innerHTML+=`<option>${team}</option>`;
+t2.innerHTML+=`<option>${team}</option>`;
+});
 }
 
-function showLineup(){
-  const m=matches[currentMatch];
-  document.getElementById("content").innerHTML=
-    `<div class="field">
-      ${drawTeam(m.home,false)}
-      ${drawTeam(m.away,true)}
-    </div>`;
+function addMatch(){
+let t1=document.getElementById("team1").value;
+let t2=document.getElementById("team2").value;
+let s1=parseInt(document.getElementById("score1").value);
+let s2=parseInt(document.getElementById("score2").value);
+
+if(t1===t2){alert("لا يمكن نفس الفريق");return;}
+
+data[t1].played++;
+data[t2].played++;
+
+data[t1].goalsFor+=s1;
+data[t1].goalsAgainst+=s2;
+
+data[t2].goalsFor+=s2;
+data[t2].goalsAgainst+=s1;
+
+if(s1>s2){data[t1].win++;data[t2].lose++;data[t1].points+=3;}
+else if(s1<s2){data[t2].win++;data[t1].lose++;data[t2].points+=3;}
+else{data[t1].draw++;data[t2].draw++;data[t1].points++;data[t2].points++;}
+
+saveData();
+updateTable();
 }
 
-function drawTeam(team,flip){
-  const pos=[[45,85],[25,60],[65,60],[30,30],[60,30]];
-  return teams[team].map((p,i)=>{
-    let x=pos[i][0],y=pos[i][1];
-    if(flip) x=100-x;
-    return `<div class="player" style="left:${x}%;top:${y}%">${p}</div>`;
-  }).join("");
+function updateTable(){
+let table=document.getElementById("table");
+table.innerHTML=`
+<tr>
+<th>الفريق</th>
+<th>لعب</th>
+<th>فاز</th>
+<th>تعادل</th>
+<th>خسر</th>
+<th>له</th>
+<th>عليه</th>
+<th>نقاط</th>
+</tr>
+`;
+
+let sorted=Object.entries(data).sort((a,b)=>b[1].points-a[1].points);
+
+sorted.forEach(([team,stats])=>{
+table.innerHTML+=`
+<tr>
+<td>${team}</td>
+<td>${stats.played}</td>
+<td>${stats.win}</td>
+<td>${stats.draw}</td>
+<td>${stats.lose}</td>
+<td>${stats.goalsFor}</td>
+<td>${stats.goalsAgainst}</td>
+<td>${stats.points}</td>
+</tr>
+`;
+});
 }
 
-function showStandings(){
-  document.getElementById("content").innerHTML=
-    standings.map(t=>`${t.team} - ${t.pts} نقطة`).join("<br>");
-}
-
-function showScorers(){
-  document.getElementById("content").innerHTML=
-    scorers.map(s=>`${s.name} (${s.g})`).join("<br>");
-}
-
-function showAssists(){
-  document.getElementById("content").innerHTML=
-    assists.map(a=>`${a.name} (${a.a})`).join("<br>");
-}
+populateTeams();
+updateTable();
