@@ -14,22 +14,21 @@
 </div>
 
 <div style="text-align:center;">
-<h3>بداية المباريات اليوم الساعة 8:40 مساءً</h3>
+<h3>بداية المباريات اليوم الساعة 8:27 مساءً</h3>
 <div id="countdown" class="countdown"></div>
 </div>
 
-<h3 style="text-align:center;">الجولة الأولى</h3>
+<div style="text-align:center;margin:15px 0;">
+<button onclick="prevDay()">⬅️</button>
+<span id="currentDay" style="font-size:20px;color:#facc15;">اليوم</span>
+<button onclick="nextDay()">➡️</button>
+</div>
 
-<div class="match-card" id="liveMatch">حمد صلاح 🆚 عبدالرحيم</div>
-<div class="match-card">أحمد محمد يوسف 🆚 عبدالرحمن</div>
-<div class="match-card">معاوية 🆚 عبدالمؤمن</div>
-
-<div style="text-align:center;color:#facc15;">راحة 💤 : حافظ بشير</div>
+<div id="matchesContainer"></div>
 
 <hr>
 
 <h3 style="text-align:center;">إدخال نتيجة</h3>
-
 <div style="text-align:center;">
 <select id="team1"></select>
 <input type="number" id="score1" placeholder="أهداف">
