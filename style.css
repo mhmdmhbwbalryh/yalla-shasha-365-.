@@ -1,67 +1,72 @@
 body{
-  margin:0;
-  font-family: 'Cinzel', serif;
-  background:linear-gradient(#1a0000,#400000);
-  color:gold;
-  text-align:center;
+margin:0;
+font-family:Arial;
+background: linear-gradient(135deg,#0b1f3a,#1e3a8a,#0f172a);
+color:white;
+}
+
+.header{
+text-align:center;
+padding:20px;
 }
 
 .logo{
-  padding:20px;
-  font-size:28px;
-  letter-spacing:3px;
-  text-shadow:0 0 10px red;
+width:150px;
 }
 
-.match{
-  background:#600000;
-  margin:15px auto;
-  padding:15px;
-  width:80%;
-  border:2px solid gold;
-  cursor:pointer;
-  transition:.3s;
+.title{
+font-size:26px;
+font-weight:bold;
+color:#facc15;
 }
 
-.match:hover{
-  background:#900000;
+.match-card{
+background:rgba(255,255,255,0.08);
+margin:10px;
+padding:12px;
+border-radius:12px;
+cursor:pointer;
+transition:0.3s;
 }
 
-.options button{
-  background:#800000;
-  color:gold;
-  border:1px solid gold;
-  margin:10px;
-  padding:10px;
-  cursor:pointer;
+.match-card:hover{
+background:rgba(255,255,255,0.15);
 }
 
-.back{
-  margin:15px;
-  background:black;
-  color:gold;
-  padding:8px;
+select,input{
+padding:8px;
+border-radius:8px;
+border:none;
+margin:5px;
 }
 
-.hidden{
-  display:none;
+button{
+background:#f97316;
+border:none;
+padding:8px 15px;
+color:white;
+border-radius:8px;
+cursor:pointer;
 }
 
-/* الملعب */
-.field{
-  position:relative;
-  width:90%;
-  height:400px;
-  margin:20px auto;
-  background:green;
-  border:4px solid white;
+table{
+width:95%;
+margin:auto;
+border-collapse:collapse;
+margin-top:10px;
 }
 
-.player{
-  position:absolute;
-  background:black;
-  color:white;
-  padding:6px;
-  border-radius:50%;
-  font-size:12px;
+td,th{
+border:1px solid white;
+padding:6px;
+text-align:center;
+}
+
+.live{
+background:red !important;
+}
+
+.countdown{
+font-size:20px;
+color:#facc15;
 }
