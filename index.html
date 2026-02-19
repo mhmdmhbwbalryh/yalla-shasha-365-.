@@ -3,41 +3,56 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dragon League</title>
+<title>YALLA SHASHA 365</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1 class="logo">🔥 DRAGON LEAGUE 🔥</h1>
-
-<div id="home">
-
-  <div class="match" onclick="openMatch(0)">
-    الهجانة × أبوطيرة
-  </div>
-
-  <div class="match" onclick="openMatch(1)">
-    العمل الخاص × أمن يا جن
-  </div>
-
-  <div class="match" onclick="openMatch(2)">
-    الفدائيين × سنايبر
-  </div>
-
+<div class="header">
+<img src="logo.png" class="logo">
+<div class="title">YALLA SHASHA 365</div>
 </div>
 
-<div id="details" class="hidden">
-  <button class="back" onclick="goHome()">⬅ رجوع</button>
-
-  <div class="options">
-    <button onclick="showLineup()">التشكيلة</button>
-    <button onclick="showStandings()">ترتيب الفرق</button>
-    <button onclick="showScorers()">الهدافين</button>
-    <button onclick="showAssists()">صانعي الأهداف</button>
-  </div>
-
-  <div id="content"></div>
+<div style="text-align:center;">
+<h3>بداية المباريات اليوم الساعة 8:40 مساءً</h3>
+<div id="countdown" class="countdown"></div>
 </div>
+
+<h3 style="text-align:center;">الجولة الأولى</h3>
+
+<div class="match-card" id="liveMatch">حمد صلاح 🆚 عبدالرحيم</div>
+<div class="match-card">أحمد محمد يوسف 🆚 عبدالرحمن</div>
+<div class="match-card">معاوية 🆚 عبدالمؤمن</div>
+
+<div style="text-align:center;color:#facc15;">راحة 💤 : حافظ بشير</div>
+
+<hr>
+
+<h3 style="text-align:center;">إدخال نتيجة</h3>
+
+<div style="text-align:center;">
+<select id="team1"></select>
+<input type="number" id="score1" placeholder="أهداف">
+🆚
+<select id="team2"></select>
+<input type="number" id="score2" placeholder="أهداف">
+<br>
+<button onclick="addMatch()">حفظ النتيجة</button>
+</div>
+
+<h3 style="text-align:center;">ترتيب الفرق</h3>
+<table id="table">
+<tr>
+<th>الفريق</th>
+<th>لعب</th>
+<th>فاز</th>
+<th>تعادل</th>
+<th>خسر</th>
+<th>له</th>
+<th>عليه</th>
+<th>نقاط</th>
+</tr>
+</table>
 
 <script src="script.js"></script>
 </body>
