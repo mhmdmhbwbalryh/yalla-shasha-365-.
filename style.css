@@ -11,7 +11,7 @@ padding:20px;
 }
 
 .logo{
-width:150px;
+width:180px; /* لوجو واضح أكبر */
 }
 
 .title{
@@ -47,22 +47,6 @@ font-weight: bold;
 color: #facc15;
 }
 
-select,input{
-padding:8px;
-border-radius:8px;
-border:none;
-margin:5px;
-}
-
-button{
-background:#f97316;
-border:none;
-padding:8px 15px;
-color:white;
-border-radius:8px;
-cursor:pointer;
-}
-
 table{
 width:95%;
 margin:auto;
@@ -76,17 +60,7 @@ padding:6px;
 text-align:center;
 }
 
-.live{
-background:red !important;
-}
-
 .countdown{
 font-size:20px;
 color:#facc15;
-}
-
-#scorers th, #scorers td{
-border:1px solid white;
-padding:6px;
-text-align:center;
 }
