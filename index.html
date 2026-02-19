@@ -9,46 +9,50 @@
 <body>
 
 <div class="header">
-  <img src="logo.png" class="logo">
-  <div class="title">YALLA SHASHA 365</div>
+<img src="logo.png" class="logo">
+<div class="title">YALLA SHASHA 365</div>
 </div>
 
 <div style="text-align:center;">
-  <h3>بداية المباراة اليوم الساعة 8:27 مساءً</h3>
-  <div id="countdown" class="countdown"></div>
+<h3>بداية المباريات اليوم الساعة 8:40 مساءً</h3>
+<div id="countdown" class="countdown"></div>
 </div>
 
-<div style="text-align:center;margin:15px 0;">
-  <button onclick="prevMatch()">⬅️</button>
-  <span id="currentMatch" style="font-size:20px;color:#facc15;">المباراة الحالية</span>
-  <button onclick="nextMatch()">➡️</button>
-</div>
+<h3 style="text-align:center;">الجولة الأولى</h3>
 
-<div id="matchesContainer"></div>
+<div class="match-card" id="liveMatch">حمد صلاح 🆚 عبدالرحيم</div>
+<div class="match-card">أحمد محمد يوسف 🆚 عبدالرحمن</div>
+<div class="match-card">معاوية 🆚 عبدالمؤمن</div>
+
+<div style="text-align:center;color:#facc15;">راحة 💤 : حافظ بشير</div>
 
 <hr>
+
+<h3 style="text-align:center;">إدخال نتيجة</h3>
+
+<div style="text-align:center;">
+<select id="team1"></select>
+<input type="number" id="score1" placeholder="أهداف">
+🆚
+<select id="team2"></select>
+<input type="number" id="score2" placeholder="أهداف">
+<br>
+<button onclick="addMatch()">حفظ النتيجة</button>
+</div>
 
 <h3 style="text-align:center;">ترتيب الفرق</h3>
 <table id="table">
 <tr>
-<th>الفريق</th><th>لعب</th><th>فاز</th><th>تعادل</th><th>خسر</th><th>له</th><th>عليه</th><th>نقاط</th>
+<th>الفريق</th>
+<th>لعب</th>
+<th>فاز</th>
+<th>تعادل</th>
+<th>خسر</th>
+<th>له</th>
+<th>عليه</th>
+<th>نقاط</th>
 </tr>
 </table>
-
-<h3 style="text-align:center;margin-top:20px;">الهدافون وصانعو الأهداف</h3>
-<table id="scorers">
-<tr>
-<th>اللاعب</th><th>الفريق</th><th>الأهداف</th><th>التمريرات الحاسمة</th>
-</tr>
-</table>
-
-<hr>
-
-<div style="text-align:center;margin-top:20px;color:white;font-weight:bold;">
-<p>صمم بواسطة محمد محبوب الريح</p>
-<p style="color:red;font-weight:bold;">™ TARGRYAN FC</p>
-<p>جميع الحقوق محفوظة 2026</p>
-</div>
 
 <script src="script.js"></script>
 </body>
